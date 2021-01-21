@@ -1,0 +1,7 @@
+{
+  "name": "open-ws",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
