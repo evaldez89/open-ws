@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "open-ws",
+  "appName": "mytabs",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
