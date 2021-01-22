@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
       {
+        path: 'favorites',
+        loadChildren: () => import('../favs/favs.module').then(m => m.FavsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/form',
         pathMatch: 'full'
