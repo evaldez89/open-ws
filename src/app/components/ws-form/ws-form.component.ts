@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Plugins, AppState } from '@capacitor/core';
+
+const { App } = Plugins;
 
 @Component({
   selector: 'app-ws-form',
@@ -17,12 +20,25 @@ export class WsFormComponent implements OnInit {
 
   createContactForm(){
     this.contactForm = this.formBuilder.group({
-      telNumber: [''],
+      phoneNumber: [''],
     });
   }
 
-  onSubmit() {
-    console.log('Your form data : ', this.contactForm.value );
+  async onSubmit() {
+    let url = `whatsapp://api.whatsapp.com/send?phone=${this.contactForm.get('phoneNumber').value}`;
+    console.log('1 -------------------');
+    const canOpen = await App.canOpenUrl({ url: url });
+    return await App.openUrl({'url': url});
+    // return await App.openUrl({'url': url}).then(res => {
+    //   console.log(res.completed);
+    // });
+
+    // let url = `whatsapp:api.whatsapp.com/send?phone=${this.contactForm.get('phoneNumber').value}`;
+    // const canOpen = await App.canOpenUrl({ url: url });
+    // if(canOpen) {
+    //   return await App.openUrl({'url': url});
+    // }
+  
   }
 
   onSave() {

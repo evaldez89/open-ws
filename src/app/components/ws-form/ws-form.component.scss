@@ -1,11 +1,12 @@
-ion-col[size="6"] ion-button {
-    width: 100%;
-}
-
 .tel-input {
     margin: 1em !important;
 }
 
 ion-input[name="telNumber"] {
     --placeholder-font-style: italic;
+}
+
+ion-content form {
+    position: relative;
+    top: 5%;
 }
