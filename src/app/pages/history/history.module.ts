@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FavsPageRoutingModule } from './favs-routing.module';
+import { HistoryPageRoutingModule } from './history-routing.module';
 
-import { FavsPage } from './favs.page';
+import { HistoryPage } from './history.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    FavsPageRoutingModule,
+    HistoryPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [FavsPage]
+  declarations: [HistoryPage]
 })
-export class FavsPageModule {}
+export class HistoryPageModule {}
