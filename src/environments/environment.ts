@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  wsApiUrl: 'whatsapp://api.whatsapp.com/send?phone=',
+  historyLimit: 10,
+  countryPrefix: '+1',
+  phoneLength: 10,
 };
 
 /*
