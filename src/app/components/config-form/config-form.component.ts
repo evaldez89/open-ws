@@ -13,7 +13,6 @@ export class ConfigFormComponent implements OnInit {
   wsApiUrl: string;
   historyLimit: number;
   phoneLength: number;
-  countryPrefix: string;
 
   constructor(private formBuilder: FormBuilder,
               private localData: LocalDataService) {
@@ -24,21 +23,25 @@ export class ConfigFormComponent implements OnInit {
   }
 
   async createConfigForm(){
-    this.wsApiUrl = await this.localData.getCastValue('wsApiUrl');
-    this.historyLimit = await this.localData.getCastValue('historyLimit');
-    this.phoneLength = await this.localData.getCastValue('phoneLength');
-    this.countryPrefix = await this.localData.getCastValue('countryPrefix');
+    this.wsApiUrl = await this.localData.wsApiUrl;
+    this.historyLimit = await this.localData.historyLimit;
+    this.phoneLength = await this.localData.phoneLength;
 
     this.configForm = this.formBuilder.group({
       wsApiUrl: [this.wsApiUrl],
       historyLimit: [this.historyLimit],
       phoneLength: [this.phoneLength],
-      countryPrefix: [this.countryPrefix],
     });
   }
 
-  async onSubmit(data: any) {
-    console.log(this.configForm, this.localData.wsApiUrl);
-  }
+  async onSubmit() {
+    for (let key in this.configForm.controls){
+      let formControl = this.configForm.get(key);
+      if(formControl.touched){
+        this.localData.setValue(key, formControl.value);
+      }
+    }
 
+    this.configForm.markAsPristine();
+  }
 }

@@ -10,13 +10,39 @@ const { Storage } = Plugins;
 })
 export class LocalDataService {
 
-  wsApiUrl: string;
-  historyLimit: number;
-  phoneLength: number;
-  countryPrefix: string;
+  constructor() {}
 
-  constructor() {
-    this.loadConfiguration();
+  get wsApiUrl(): Promise<string> {
+    return (async () => await this.getValue("wsApiUrl"))().then(resp => {
+      if (resp.value) {
+        return resp.value as string;
+      } else {
+        this.setValue('wsApiUrl', environment.wsApiUrl)
+        return environment.wsApiUrl;
+      }
+    });
+  }
+
+  get historyLimit(): Promise<number> {
+    return (async () => await this.getValue("historyLimit"))().then(resp => {
+      if (resp.value) {
+        return resp.value as number;
+      } else {
+        this.setValue('historyLimit', environment.historyLimit)
+        return environment.historyLimit;
+      }
+    });
+  }
+
+  get phoneLength(): Promise<number> {
+    return (async () => await this.getValue("phoneLength"))().then(resp => {
+      if (resp.value) {
+        return resp.value as number;
+      } else {
+        this.setValue('phoneLength', environment.phoneLength)
+        return environment.phoneLength;
+      }
+    });
   }
 
   async setValue(key: string, value: any){
@@ -41,44 +67,6 @@ export class LocalDataService {
     newLog.phoneNumber = newValue; // Clean value before asigning
     newLog.date = new Date().toISOString();
     currentHistory.unshift(newLog);
-    await this.setValue('history', currentHistory.slice(1, this.historyLimit));
-  }
-
-  async loadConfiguration() {
-    await this.getValue('wsApiUrl').then(resp => {
-      if (resp.value) {
-        this.wsApiUrl = resp.value;
-      } else {
-        this.wsApiUrl = environment.wsApiUrl;
-        this.setValue('wsApiUrl', this.wsApiUrl)
-      }
-    });
-
-    await this.getValue('historyLimit').then(resp => {
-      if (resp.value && resp.value <= 20) {
-        this.historyLimit = resp.value;
-      } else {
-        this.historyLimit = environment.historyLimit;
-        this.setValue('historyLimit', this.historyLimit);
-      }
-    });
-
-    await this.getValue('phoneLength').then(resp => {
-      if (resp.value) {
-        this.phoneLength = resp.value;
-      } else {
-        this.phoneLength = environment.phoneLength;
-        this.setValue('phoneLength', this.phoneLength)
-      }
-    });
-
-    await this.getValue('countryPrefix').then(resp => {
-      if (resp.value) {
-        this.countryPrefix = resp.value;
-      } else {
-        this.countryPrefix = environment.countryPrefix;
-        this.setValue('countryPrefix', this.countryPrefix)
-      }
-    });
+    await this.setValue('history', currentHistory.slice(1, await this.historyLimit));
   }
 }
