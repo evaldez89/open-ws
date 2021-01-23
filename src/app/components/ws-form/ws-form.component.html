@@ -1,14 +1,17 @@
 <ion-content center text-center>
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm)">
+    <form [formGroup]="contactForm" *ngIf="contactForm" (ngSubmit)="onSubmit(contactForm)">
         <ion-row>
-            <ion-col size="12">
+            <ion-col size="12" *ngIf="contactForm.controls['phoneNumber']">
                 <ion-item>
                     <ion-label>Número: </ion-label>
-                    <ion-input required="true" autofocus="true" clear-input="true" enterkeyhint="send" autocomplete="tel-national" type="tel" name="phoneNumber" placeholder="8091234444" formControlName="phoneNumber"></ion-input>
+                    <ion-input class="phoneNumber" autofocus="true" clear-input="true" enterkeyhint="send" autocomplete="tel-national" type="tel" name="phoneNumber" placeholder="+18091234444" formControlName="phoneNumber"></ion-input>
                     <ion-button color="primary" (click)="onSubmit()" fill="clear" shape="round" [disabled]="!contactForm.valid">
                         Abrir
                         <ion-icon slot="start" name="send"></ion-icon>
                     </ion-button>
+                </ion-item>
+                <ion-item *ngIf="contactForm.controls[ 'phoneNumber'].errors && contactForm.controls[ 'phoneNumber'].errors.maxlength ">
+                    <ion-label color="danger ">Excede la longitud máxima configurada de: {{phoneLength}}</ion-label>
                 </ion-item>
             </ion-col>
         </ion-row>

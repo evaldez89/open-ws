@@ -1,9 +1,5 @@
-.tel-input {
-    margin: 1em !important;
-}
-
-ion-input[name="telNumber"] {
-    --placeholder-font-style: italic;
+ion-input {
+    font-style: italic;
 }
 
 ion-content form {

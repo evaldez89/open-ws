@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Plugins, AppState } from '@capacitor/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Plugins } from '@capacitor/core';
+import { LocalDataService } from 'src/app/service/local-data.service';
 
 const { App } = Plugins;
 
@@ -12,21 +13,28 @@ const { App } = Plugins;
 export class WsFormComponent implements OnInit {
 
   contactForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
-    this.createContactForm();
+  phoneLength: number;
+
+  constructor(private formBuilder: FormBuilder,
+              private localData: LocalDataService) {
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    await this.createContactForm();
+  }
 
-  createContactForm(){
+  async createContactForm(){
+    this.phoneLength = await this.localData.phoneLength;
     this.contactForm = this.formBuilder.group({
-      phoneNumber: [''],
+      phoneNumber: ['', [Validators.maxLength(this.phoneLength)]]
     });
   }
 
   async onSubmit() {
-    let url = `whatsapp://api.whatsapp.com/send?phone=${this.contactForm.get('phoneNumber').value}`;
-    const canOpen = await App.canOpenUrl({ url: url });
+    let url = `${await this.localData.wsApiUrl}${this.contactForm.get('phoneNumber').value}`;
+    console.log(url);
+
+    // const canOpen = await App.canOpenUrl({ url: url });
     return await App.openUrl({'url': url});
   }
 }

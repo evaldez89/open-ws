@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { WsFormComponent } from 'src/app/components/ws-form/ws-form.component';
 
 @Component({
   selector: 'app-form',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormPage implements OnInit {
 
+  @ViewChild(WsFormComponent) form: WsFormComponent;
   constructor() { }
 
   ngOnInit() {
   }
 
+  async ionViewDidEnter() {
+    await this.form.createContactForm()
+  }
 }
