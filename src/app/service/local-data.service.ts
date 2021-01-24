@@ -57,16 +57,20 @@ export class LocalDataService {
     return (await this.getValue(key)).value as T;
   }
 
-  async loadHistory(): Promise<{ value: Log[] }> {
+  async loadHistory(): Promise<Log[]> {
     const ret = await this.getValue('history');
     return JSON.parse(ret.value);
   }
 
-  async saveToHistory(currentHistory: Log[], newValue: string){
-    let newLog: Log;
-    newLog.phoneNumber = newValue; // Clean value before asigning
-    newLog.date = new Date().toISOString();
+  async saveToHistory(newNumber: string){
+
+    let newLog: Log = {phoneNumber: newNumber, date: new Date().toISOString()};
+    let currentHistory = await this.loadHistory();
+
+    // Clean value before asigning
+    // Validate it does not exist, if exist update date
     currentHistory.unshift(newLog);
-    await this.setValue('history', currentHistory.slice(1, await this.historyLimit));
+    currentHistory = currentHistory.slice(0, await this.historyLimit);
+    await this.setValue('history', JSON.stringify(currentHistory) );
   }
 }
