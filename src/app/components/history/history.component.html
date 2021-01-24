@@ -1,0 +1,20 @@
+<ion-list-header>
+    <ion-title>
+        <h5>Últimos Registros</h5>
+    </ion-title>
+    <ion-button color="danger" (click)="deleteAll()" [disabled]="historyRecords">
+        <ion-icon name="trash-bin-outline"></ion-icon>
+    </ion-button>
+</ion-list-header>
+
+<ion-list>
+    <ion-item *ngFor="let log of historyRecords">
+        <ion-label>
+            <h3>{{log.phoneNumber}}</h3>
+            <p> {{ log.date | date }} </p>
+        </ion-label>
+        <ion-button color="secondary">
+            <ion-icon name="share-social"></ion-icon>
+        </ion-button>
+    </ion-item>
+</ion-list>

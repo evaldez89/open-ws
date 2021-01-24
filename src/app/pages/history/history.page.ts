@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HistoryComponent } from 'src/app/components/history/history.component';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryPage implements OnInit {
 
+  @ViewChild(HistoryComponent) historyComponent: HistoryComponent;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter(){
+    this.historyComponent.loadHistory();
   }
 
 }

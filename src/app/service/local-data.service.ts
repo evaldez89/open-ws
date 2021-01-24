@@ -65,12 +65,16 @@ export class LocalDataService {
   async saveToHistory(newNumber: string){
 
     let newLog: Log = {phoneNumber: newNumber, date: new Date().toISOString()};
-    let currentHistory = await this.loadHistory();
+    let currentHistory = await this.loadHistory() || [];
 
     // Clean value before asigning
     // Validate it does not exist, if exist update date
     currentHistory.unshift(newLog);
     currentHistory = currentHistory.slice(0, await this.historyLimit);
     await this.setValue('history', JSON.stringify(currentHistory) );
+  }
+
+  async remoteItem(key: string){
+    await this.setValue(key, null);
   }
 }
