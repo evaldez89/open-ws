@@ -2,7 +2,7 @@
     <ion-title>
         <h5>Últimos Registros</h5>
     </ion-title>
-    <ion-button color="danger" (click)="deleteAll()" [disabled]="historyRecords">
+    <ion-button color="danger" (click)="deleteAll()" [disabled]="historyRecords == undefined">
         <ion-icon name="trash-bin-outline"></ion-icon>
     </ion-button>
 </ion-list-header>
@@ -13,7 +13,7 @@
             <h3>{{log.phoneNumber}}</h3>
             <p> {{ log.date | date }} </p>
         </ion-label>
-        <ion-button color="secondary">
+        <ion-button color="secondary" (click)="share(log)">
             <ion-icon name="share-social"></ion-icon>
         </ion-button>
     </ion-item>
