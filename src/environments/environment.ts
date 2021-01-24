@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   wsApiUrl: 'whatsapp://api.whatsapp.com/send?phone=',
   historyLimit: 10,
-  phoneLength: 10,
+  phoneLength: 13,
 };
 
 /*
