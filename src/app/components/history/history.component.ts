@@ -22,9 +22,14 @@ export class HistoryComponent implements OnInit {
     this.loadHistory();
   }
 
-  async loadHistory(){
-    this.historyRecords = (await this.localData.loadHistory());
-    this.historyLoaded = true;
+  async loadHistory() {
+    this.historyLoaded = false;
+    this.historyRecords = [];
+    let recs = (await this.localData.loadHistory());
+    setTimeout(() => {
+      this.historyRecords = recs;
+      this.historyLoaded = true;
+    }, 500);
   }
 
   async share(item: Log){
