@@ -1,5 +1,5 @@
 <ion-content center text-center>
-    <form [formGroup]="contactForm" *ngIf="contactForm" (ngSubmit)="onSubmit(contactForm)">
+    <form [formGroup]="contactForm" *ngIf="contactForm" (ngSubmit)="onSubmit()">
         <ion-row>
             <ion-col size="12" *ngIf="contactForm.controls['phoneNumber']">
                 <ion-item>
