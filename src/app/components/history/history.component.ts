@@ -13,6 +13,7 @@ export class HistoryComponent implements OnInit {
 
   historyRecords: Log[];
   historyLoaded = false;
+  selectedUrl: string;
 
   constructor(private socialSharing: SocialSharing,
               private platform: Platform,
@@ -23,6 +24,7 @@ export class HistoryComponent implements OnInit {
   }
 
   async loadHistory() {
+    this.selectedUrl = '';
     this.historyLoaded = false;
     this.historyRecords = [];
     let recs = (await this.localData.loadHistory());
@@ -54,10 +56,14 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+  async send(phoneNumber: string) {
+    this.selectedUrl = `${await this.localData.wsApiUrl}${phoneNumber}`;
+    this.localData.openApp(this.selectedUrl);
+  }
+
   deleteAll(){
     this.localData.remoteItem('history');
     // TODO: Let the user know the records will be deleted
     this.historyRecords = [];
   }
-
 }

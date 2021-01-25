@@ -1,22 +1,32 @@
 <ion-list-header>
     <ion-title>
-        <h5>Últimos Registros</h5>
     </ion-title>
-    <ion-button color="danger" (click)="deleteAll()" [disabled]="historyRecords == undefined">
+    <ion-button color="danger" (click)="deleteAll()" [disabled]="historyRecords == undefined || historyRecords.length == 0 || !historyLoaded">
         <ion-icon name="trash-bin-outline"></ion-icon>
     </ion-button>
 </ion-list-header>
 
 <ion-list>
-    <ion-item *ngFor="let log of historyRecords">
-        <ion-label>
-            <h3>{{log.phoneNumber}}</h3>
-            <p> {{ log.date | date }} </p>
-        </ion-label>
-        <ion-button color="secondary" (click)="share(log)">
-            <ion-icon name="share-social"></ion-icon>
-        </ion-button>
-    </ion-item>
+    <ion-item-group *ngFor="let log of historyRecords">
+        <ion-item>
+            <ion-label>
+                <h3>{{log.phoneNumber}}</h3>
+                <p> {{ log.date | date:'medium' }} </p>
+            </ion-label>
+            <ion-button fill="clear" color="secondary" (click)="send(log.phoneNumber)">
+                <ion-icon color="primary" name="send-sharp"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="secondary" (click)="share(log)">
+                <ion-icon color="primary" name="share-social"></ion-icon>
+            </ion-button>
+        </ion-item>
+
+        <ion-item *ngIf="selectedUrl && log.phoneNumber == (selectedUrl | slice:-log.phoneNumber.length)">
+            <ion-label>
+                <a [href]="selectedUrl">{{selectedUrl}}</a>
+            </ion-label>
+        </ion-item>
+    </ion-item-group>
 </ion-list>
 
 <ion-spinner *ngIf="!historyLoaded" name="bubbles"></ion-spinner>
