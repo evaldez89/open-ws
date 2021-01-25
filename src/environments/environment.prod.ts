@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  wsApiUrl: 'whatsapp://api.whatsapp.com/send?phone=',
+  wsApiUrl: 'https://api.whatsapp.com/send?phone=+1',
   historyLimit: 10
 };
