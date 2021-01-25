@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Plugins } from '@capacitor/core';
-import { IonInput } from '@ionic/angular';
 import { LocalDataService } from 'src/app/service/local-data.service';
 
 const { App } = Plugins;
@@ -33,6 +32,8 @@ export class WsFormComponent implements OnInit {
 
   async onSubmit() {
     let phoneNumber = this.contactForm.get('phoneNumber').value;
+    phoneNumber = phoneNumber.replace(/\D/g,'');
+
     this.url = `${await this.localData.wsApiUrl}${phoneNumber}`;
     this.localData.saveToHistory(phoneNumber);
     console.log(await this.localData.wsApiUrl, phoneNumber, this.url);
