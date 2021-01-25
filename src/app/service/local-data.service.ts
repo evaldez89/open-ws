@@ -3,6 +3,8 @@ import { Plugins } from '@capacitor/core';
 import { environment } from 'src/environments/environment';
 import { Log } from '../interfaces/log';
 
+const { App } = Plugins;
+
 const { Storage } = Plugins;
 
 @Injectable({
@@ -68,5 +70,16 @@ export class LocalDataService {
 
   async remoteItem(key: string){
     await this.setValue(key, null);
+  }
+
+  async openApp(url: string) {
+    let message = `able to open ${url}`;
+    const canOpen = await App.canOpenUrl({ url });
+
+    if (canOpen.value) {
+      await App.openUrl({ url })
+        .then(() => console.log(message))
+        .catch(_ => console.log("un"+message));
+    }
   }
 }

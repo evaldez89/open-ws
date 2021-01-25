@@ -1,9 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Plugins } from '@capacitor/core';
 import { LocalDataService } from 'src/app/service/local-data.service';
 
-const { App } = Plugins;
 
 @Component({
   selector: 'app-ws-form',
@@ -38,13 +36,6 @@ export class WsFormComponent implements OnInit {
     this.localData.saveToHistory(phoneNumber);
     console.log(await this.localData.wsApiUrl, phoneNumber, this.url);
 
-    let message = `able to open ${this.url}`;
-    const canOpen = await App.canOpenUrl({ url: this.url });
-
-    if (canOpen.value) {
-      await App.openUrl({'url': this.url})
-        .then(() => console.log(message))
-        .catch(_ => console.log("un"+message));
-    }
+    this.localData.openApp(this.url);
   }
 }
