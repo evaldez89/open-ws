@@ -30,3 +30,12 @@ npm-debug.log*
 /plugins
 /www
 /android
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
