@@ -4,7 +4,7 @@
             <ion-col size="12" *ngIf="contactForm.controls['phoneNumber']">
                 <ion-item>
                     <ion-label>Número: </ion-label>
-                    <ion-input class="phoneNumber" autofocus="true" clear-input="true" enterkeyhint="send" autocomplete="tel-national" type="tel" name="phoneNumber" placeholder="+18091234444" formControlName="phoneNumber"></ion-input>
+                    <ion-input class="phoneNumber" autofocus="true" clear-input="true" enterkeyhint="send" autocomplete="tel-national" type="tel" name="phoneNumber" placeholder="8091234444" formControlName="phoneNumber"></ion-input>
                     <ion-button color="primary" (click)="onSubmit()" fill="clear" shape="round" [disabled]="!contactForm.valid">
                         Abrir
                         <ion-icon slot="start" name="send"></ion-icon>
@@ -12,7 +12,7 @@
                 </ion-item>
                 <ion-item *ngIf="url">
                     <ion-text color="secondary" style="font-style: italic;">
-                        <a [href]="url">{{url}}</a>
+                        <a [href]="url">Clic aquí</a>
                     </ion-text>
                 </ion-item>
             </ion-col>

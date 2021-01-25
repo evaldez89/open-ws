@@ -74,7 +74,7 @@ export class LocalDataService {
 
   async openApp(url: string) {
     let message = `able to open ${url}`;
-    const canOpen = await App.canOpenUrl({ url });
+    // const canOpen = await App.canOpenUrl({ url });
 
     // if (canOpen.value) { }
     await App.openUrl({ url })
