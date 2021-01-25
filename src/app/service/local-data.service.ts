@@ -34,17 +34,6 @@ export class LocalDataService {
     });
   }
 
-  get phoneLength(): Promise<number> {
-    return (async () => await this.getValue("phoneLength"))().then(resp => {
-      if (resp.value) {
-        return resp.value as number;
-      } else {
-        this.setValue('phoneLength', environment.phoneLength)
-        return environment.phoneLength;
-      }
-    });
-  }
-
   async setValue(key: string, value: any){
     await Storage.set({key, value});
   }

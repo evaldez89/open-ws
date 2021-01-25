@@ -13,7 +13,6 @@ const { App } = Plugins;
 export class WsFormComponent implements OnInit {
 
   contactForm: FormGroup;
-  phoneLength: number;
 
   constructor(private formBuilder: FormBuilder,
               private localData: LocalDataService) {
@@ -24,9 +23,8 @@ export class WsFormComponent implements OnInit {
   }
 
   async createContactForm(){
-    this.phoneLength = await this.localData.phoneLength;
     this.contactForm = this.formBuilder.group({
-      phoneNumber: ['', [Validators.required, Validators.maxLength(this.phoneLength)]]
+      phoneNumber: ['', [Validators.required]]
     });
   }
 

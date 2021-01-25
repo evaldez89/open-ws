@@ -12,6 +12,7 @@ import { Platform } from '@ionic/angular';
 export class HistoryComponent implements OnInit {
 
   historyRecords: Log[];
+  historyLoaded = false;
 
   constructor(private socialSharing: SocialSharing,
               private platform: Platform,
@@ -23,6 +24,7 @@ export class HistoryComponent implements OnInit {
 
   async loadHistory(){
     this.historyRecords = (await this.localData.loadHistory());
+    this.historyLoaded = true;
   }
 
   async share(item: Log){
@@ -31,27 +33,26 @@ export class HistoryComponent implements OnInit {
     url = url.replace('whatsapp://', '')
 
     const options = {
-      message: `Chat con Número: *${item.phoneNumber}*\n`,
-      subject: "Compartir Número de Teléfono",
+      message: `Chat con Número: *${item.phoneNumber}*:\n\n`,
+      subject: "Compartir Chat con Número",
       url
     };
 
     if(this.platform.is('capacitor') || this.platform.is('cordova')) {
       this.socialSharing.shareWithOptions(options);
-      // this.socialSharing.shareWithOptions(options).then(resp => {console.log('success'); })
     } else if (navigator['share']) {
       navigator['share'](options)
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
+    } else {
+      console.log('Can not share using this browser');
     }
   }
 
   deleteAll(){
-    console.log(this.historyRecords);
     this.localData.remoteItem('history');
     // TODO: Let the user know the records will be deleted
-    this.loadHistory();
-    console.log(this.historyRecords);
+    this.historyRecords = [];
   }
 
 }

@@ -12,7 +12,6 @@ export class ConfigFormComponent implements OnInit {
   configForm: FormGroup;
   wsApiUrl: string;
   historyLimit: number;
-  phoneLength: number;
 
   constructor(private formBuilder: FormBuilder,
               private localData: LocalDataService) {
@@ -25,12 +24,10 @@ export class ConfigFormComponent implements OnInit {
   async createConfigForm(){
     this.wsApiUrl = await this.localData.wsApiUrl;
     this.historyLimit = await this.localData.historyLimit;
-    this.phoneLength = await this.localData.phoneLength;
 
     this.configForm = this.formBuilder.group({
       wsApiUrl: [this.wsApiUrl],
-      historyLimit: [this.historyLimit],
-      phoneLength: [this.phoneLength],
+      historyLimit: [this.historyLimit]
     });
   }
 

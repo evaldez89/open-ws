@@ -10,13 +10,6 @@
                         <ion-icon slot="start" name="send"></ion-icon>
                     </ion-button>
                 </ion-item>
-                <ion-item>
-                    <!-- TODO: the value is not being updated when change on the configuration menu -->
-                    <ion-label>{{ phoneLength }}</ion-label>
-                </ion-item>
-                <ion-item *ngIf="contactForm.controls[ 'phoneNumber'].errors && contactForm.controls[ 'phoneNumber'].errors.maxlength ">
-                    <ion-label color="danger ">Excede longitud máxima de: {{phoneLength}}</ion-label>
-                </ion-item>
             </ion-col>
         </ion-row>
     </form>

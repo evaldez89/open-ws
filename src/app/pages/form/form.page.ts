@@ -14,7 +14,7 @@ export class FormPage implements OnInit {
   ngOnInit() {
   }
 
-  async ionViewDidEnter() {
-    await this.form.createContactForm()
+  ionViewDidEnter() {
+    this.form.createContactForm()
   }
 }
