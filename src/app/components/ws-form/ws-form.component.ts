@@ -1,6 +1,7 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Plugins } from '@capacitor/core';
+import { IonInput } from '@ionic/angular';
 import { LocalDataService } from 'src/app/service/local-data.service';
 
 const { App } = Plugins;
@@ -13,6 +14,7 @@ const { App } = Plugins;
 export class WsFormComponent implements OnInit {
 
   contactForm: FormGroup;
+  url: string;
 
   constructor(private formBuilder: FormBuilder,
               private localData: LocalDataService) {
@@ -23,6 +25,7 @@ export class WsFormComponent implements OnInit {
   }
 
   async createContactForm(){
+    this.url = '';
     this.contactForm = this.formBuilder.group({
       phoneNumber: ['', [Validators.required]]
     });
@@ -30,10 +33,17 @@ export class WsFormComponent implements OnInit {
 
   async onSubmit() {
     let phoneNumber = this.contactForm.get('phoneNumber').value;
-    let url = `${await this.localData.wsApiUrl}${phoneNumber}`;
+    this.url = `${await this.localData.wsApiUrl}${phoneNumber}`;
     this.localData.saveToHistory(phoneNumber);
+    console.log(await this.localData.wsApiUrl, phoneNumber, this.url);
 
-    // const canOpen = await App.canOpenUrl({ url: url });
-    return await App.openUrl({'url': url});
+    let message = `able to open ${this.url}`;
+    const canOpen = await App.canOpenUrl({ url: this.url });
+
+    if (canOpen.value) {
+      await App.openUrl({'url': this.url})
+        .then(() => console.log(message))
+        .catch(_ => console.log("un"+message));
+    }
   }
 }

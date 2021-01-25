@@ -10,6 +10,11 @@
                         <ion-icon slot="start" name="send"></ion-icon>
                     </ion-button>
                 </ion-item>
+                <ion-item *ngIf="url">
+                    <ion-text color="secondary" style="font-style: italic;">
+                        <a [href]="url">{{url}}</a>
+                    </ion-text>
+                </ion-item>
             </ion-col>
         </ion-row>
     </form>
