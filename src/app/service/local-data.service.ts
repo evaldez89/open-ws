@@ -76,10 +76,9 @@ export class LocalDataService {
     let message = `able to open ${url}`;
     const canOpen = await App.canOpenUrl({ url });
 
-    if (canOpen.value) {
-      await App.openUrl({ url })
-        .then(() => console.log(message))
-        .catch(_ => console.log("un"+message));
-    }
+    // if (canOpen.value) { }
+    await App.openUrl({ url })
+      .then(() => console.log(message))
+      .catch(_ => console.log("un"+message));
   }
 }

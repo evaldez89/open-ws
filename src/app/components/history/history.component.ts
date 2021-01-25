@@ -58,7 +58,7 @@ export class HistoryComponent implements OnInit {
 
   async send(phoneNumber: string) {
     this.selectedUrl = `${await this.localData.wsApiUrl}${phoneNumber}`;
-    this.localData.openApp(this.selectedUrl);
+    await this.localData.openApp(this.selectedUrl);
   }
 
   deleteAll(){

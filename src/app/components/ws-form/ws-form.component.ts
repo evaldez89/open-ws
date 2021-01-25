@@ -36,6 +36,6 @@ export class WsFormComponent implements OnInit {
     this.localData.saveToHistory(phoneNumber);
     console.log(await this.localData.wsApiUrl, phoneNumber, this.url);
 
-    this.localData.openApp(this.url);
+    await this.localData.openApp(this.url);
   }
 }
